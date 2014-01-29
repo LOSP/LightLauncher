@@ -1,0 +1,5 @@
+db_files
+/bin
+/gen
+/obj
+/libs/*/*.so
