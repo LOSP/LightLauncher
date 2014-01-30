@@ -37,8 +37,8 @@ public class SettingsProvider
     public static void putString(Context context, String key, String value) {
         getPreferences(context).edit().putString(key, value).commit();
     }
-	
-	public static void remove(Context context, String key) {
-		getPreferences(context).edit().remove(key).commit();
-	}
+    
+    public static void remove(Context context, String key) {
+        getPreferences(context).edit().remove(key).commit();
+    }
 }
