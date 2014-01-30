@@ -25,7 +25,6 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
         mCurrent = findPreference(KEY_ICONPACK_CURRENT);
         mChooser = findPreference(KEY_ICONPACK_CHOOSER);
         
-        mChooser.setOnPreferenceClickListener(this);
         mCurrent.setSummary(SettingsProvider.getString(this, SettingsProvider.KEY_INTERFACE_ICONPACK, getResources().getString(R.string.interface_iconpack_current_summary_default)));
         
         // Show "home"

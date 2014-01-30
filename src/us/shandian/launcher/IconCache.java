@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
+ * Copyright (C) 2014 The Light OpenSource Project
+ * Not a contribution
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +34,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import us.shandian.launcher.settings.SettingsProvider;
+import us.shandian.launcher.settings.IconPackHelper;
+
 /**
  * Cache of application icons.  Icons can be made from any thread.
  */
@@ -52,6 +57,9 @@ public class IconCache {
     private final HashMap<ComponentName, CacheEntry> mCache =
             new HashMap<ComponentName, CacheEntry>(INITIAL_ICON_CACHE_CAPACITY);
     private int mIconDpi;
+	
+	private IconPackHelper mHelper;
+	private boolean mHasIconPack;
 
     public IconCache(Context context) {
         ActivityManager activityManager =
@@ -63,6 +71,21 @@ public class IconCache {
 
         // need to set mIconDpi before getting default icon
         mDefaultIcon = makeDefaultIcon();
+		
+        // Load icon packs
+        mHelper = new IconPackHelper(context);
+        loadIconPack();
+    }
+    
+    private void loadIconPack() {
+        mHelper.unloadIconPack();
+        String iconPack = SettingsProvider.getString(mContext, SettingsProvider.KEY_INTERFACE_ICONPACK, "");
+        if (iconPack == "") {
+            mHasIconPack = false;
+        } else {
+            mHasIconPack = true;
+            mHelper.loadIconPack(iconPack);
+        }
     }
 
     public Drawable getFullResDefaultActivityIcon() {
@@ -110,7 +133,17 @@ public class IconCache {
             resources = null;
         }
         if (resources != null) {
-            int iconId = info.getIconResource();
+            int iconId = 0;
+            if (mHasIconPack) {
+                // Try to get the icon
+                iconId = mHelper.getResourceIdForActivityIcon(info);
+                if (iconId != 0) {
+                    return getFullResIcon(mHelper.getIconPackResources(), iconId);
+                }
+            }
+            // If no icon pack is loaded, or the icon pack have no icon
+            // for this activity, then fall back to original icon
+            iconId = info.getIconResource();
             if (iconId != 0) {
                 return getFullResIcon(resources, iconId);
             }
@@ -145,6 +178,7 @@ public class IconCache {
     public void flush() {
         synchronized (mCache) {
             mCache.clear();
+            loadIconPack();
         }
     }
 
