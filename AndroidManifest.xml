@@ -140,7 +140,7 @@
 
         <!-- Launcher settings -->
         <activity
-            android:name="us.shandian.launcher.settings.LauncherSettingsActivity"
+            android:name="us.shandian.launcher.settings.SettingsActivity"
             android:theme="@android:style/Theme.Holo.Light"
             android:label="@string/settings_button_text"
             android:icon="@mipmap/ic_launcher_home"

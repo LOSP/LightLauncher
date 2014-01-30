@@ -100,7 +100,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import us.shandian.launcher.DropTarget.DragObject;
-import us.shandian.launcher.settings.LauncherSettingsActivity;
+import us.shandian.launcher.settings.SettingsActivity;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -983,7 +983,7 @@ public class Launcher extends Activity
     protected void startSettings() {
         // Launch LauncherSettingsActivity
         Intent intent = new Intent("android.intent.action.MAIN");
-        intent.setClass(this, LauncherSettingsActivity.class);
+        intent.setClass(this, SettingsActivity.class);
         startActivity(intent);
     }
 

@@ -8,7 +8,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 
 import us.shandian.launcher.R;
 
-public class LauncherSettingsActivity extends PreferenceActivity implements OnPreferenceClickListener
+public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener
 {
     private Preference mRestart;
     
