@@ -3,6 +3,7 @@
     
     <!-- Settings -->
     <string name="settings_about">关于</string>
+    <string name="settings_restart">重启 LightLauncher</string>
     
     <!-- About -->
     <string name="about_version_title">LightLauncher 版本</string>

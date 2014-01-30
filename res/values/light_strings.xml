@@ -3,6 +3,7 @@
     
     <!-- Settings -->
     <string name="settings_about">About</string>
+    <string name="settings_restart">Restart LightLauncher</string>
     
     <!-- About -->
     <string name="about_version_title">LightLauncher Version</string>

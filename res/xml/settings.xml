@@ -8,6 +8,10 @@
                 android:targetPackage="us.shandian.launcher"
                 android:targetClass="us.shandian.launcher.settings.AboutActivity"/>
     </Preference>
+    
+    <Preference
+        android:key="settings_restart"
+        android:title="@string/settings_restart"/>
 
 </PreferenceScreen>
 
