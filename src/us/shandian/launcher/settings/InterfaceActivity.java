@@ -25,8 +25,12 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
         mCurrent = findPreference(KEY_ICONPACK_CURRENT);
         mChooser = findPreference(KEY_ICONPACK_CHOOSER);
         
-        mCurrent.setSummary(SettingsProvider.getString(this, SettingsProvider.KEY_INTERFACE_ICONPACK, getResources().getString(R.string.interface_iconpack_current_summary_default)));
-        
+        String iconPack = SettingsProvider.getString(this, SettingsProvider.KEY_INTERFACE_ICONPACK, getResources().getString(R.string.interface_iconpack_current_summary_default));
+        try {
+            mCurrent.setSummary(getPackageManager().getPackageInfo(iconPack, 0).applicationInfo.loadLabel(getPackageManager()));
+        } catch (Exception e) {
+            // So what?
+        }
         // Show "home"
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
