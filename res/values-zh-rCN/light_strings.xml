@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- Settings -->
+    <string name="settings_about">关于</string>
+    
+    <!-- About -->
+    <string name="about_version_title">LightLauncher 版本</string>
+    <string name="about_developers_title">开发者</string>
+    <string name="about_developers_summary">\@喝雪碧的虾(PeterCxy)</string>
+    <string name="about_license_title">开源协议</string>
+    <string name="about_license_summary">Apache License 2.0</string>
+    
+</resources>

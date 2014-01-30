@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- Settings -->
+    <string name="settings_about">About</string>
+    
+    <!-- About -->
+    <string name="about_version_title">LightLauncher Version</string>
+    <string name="about_developers_title">Developer(s)</string>
+    <string name="about_developers_summary">\@PeterCxy</string>
+    <string name="about_license_title">Open Source License</string>
+    <string name="about_license_summary">Apache License 2.0</string>
+    
+</resources>

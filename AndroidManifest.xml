@@ -151,6 +151,19 @@
             </intent-filter>
         </activity>
 
+        <!-- Launcher about -->
+        <activity
+            android:name="us.shandian.launcher.settings.AboutActivity"
+            android:theme="@android:style/Theme.Holo.Light"
+            android:label="@string/settings_about"
+            android:icon="@mipmap/ic_launcher_home"
+            android:finishOnCloseSystemDialogs="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <!-- Debugging tools -->
         <activity
             android:name="us.shandian.launcher.MemoryDumpActivity"
