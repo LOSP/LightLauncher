@@ -25,4 +25,7 @@
     <string name="interface_hotseat_icon_size_title">图标大小</string>
     <string name="interface_hotseat_icon_size_summary_default">默认</string>
     
+    <!-- Messages -->
+    <string name="message_needs_restart">需要重启 LightLauncher 使设置生效</string>
+    
 </resources>

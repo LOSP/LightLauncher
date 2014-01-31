@@ -1,6 +1,7 @@
 package us.shandian.launcher.settings;
 
 import android.os.Bundle;
+import android.widget.Toast;
 import android.view.MenuItem;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -82,6 +83,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         boolean ret = false;
+        boolean needsRestart = false;
         if (preference == mHomescreenIconSize) {
             int size = newValue.equals("") ? 0 : Integer.parseInt((String) newValue);
             if (size > 0) {
@@ -92,6 +94,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
                 SettingsProvider.remove(this, SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE);
             }
             ret = true;
+            needsRestart = true;
         } else if (preference == mHotseatIconSize) {
             int size = newValue.equals("") ? 0 : Integer.parseInt((String) newValue);
             if (size > 0) {
@@ -102,6 +105,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
                 SettingsProvider.remove(this, SettingsProvider.KEY_INTERFACE_HOTSEAT_ICON_SIZE);
             }
             ret = true;
+            needsRestart = true;
         }
         
         if (ret) {
@@ -109,6 +113,11 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
             LauncherAppState.getInstance().getDynamicGrid().forceReload();
             LauncherAppState.getInstance().getIconCache().flush();
             LauncherAppState.getInstance().getModel().forceReload();
+        }
+        
+        if (needsRestart) {
+            // Show the message
+            Toast.makeText(this, R.string.message_needs_restart, 1000).show();
         }
         
         return ret;

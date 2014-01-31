@@ -25,4 +25,7 @@
     <string name="interface_hotseat_icon_size_title">Icon Size</string>
     <string name="interface_hotseat_icon_size_summary_default">Default</string>
     
+    <!-- Messages -->
+    <string name="message_needs_restart">Needs restarting LightLauncher to take effect</string>
+    
 </resources>
