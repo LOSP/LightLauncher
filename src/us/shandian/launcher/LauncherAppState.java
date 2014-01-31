@@ -146,11 +146,11 @@ public class LauncherAppState {
         return mModel;
     }
 
-    IconCache getIconCache() {
+    public IconCache getIconCache() {
         return mIconCache;
     }
 
-    LauncherModel getModel() {
+    public LauncherModel getModel() {
         return mModel;
     }
 
@@ -191,7 +191,7 @@ public class LauncherAppState {
                 availableWidth, availableHeight);
         return grid;
     }
-    DynamicGrid getDynamicGrid() {
+    public DynamicGrid getDynamicGrid() {
         return mDynamicGrid;
     }
 

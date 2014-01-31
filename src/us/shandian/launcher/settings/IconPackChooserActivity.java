@@ -21,6 +21,7 @@ import java.util.Comparator;
 
 import us.shandian.launcher.R;
 import us.shandian.launcher.settings.IconPackHelper.IconPackInfo;
+import us.shandian.launcher.LauncherAppState;
 
 public class IconPackChooserActivity extends Activity implements OnItemClickListener
 {
@@ -60,8 +61,11 @@ public class IconPackChooserActivity extends Activity implements OnItemClickList
             SettingsProvider.putString(this, SettingsProvider.KEY_INTERFACE_ICONPACK, mAdapter.getItem(position).toString());
         }
         
-        // Restart launcher after changing icon pack
-        System.exit(0);
+        // Reload launcher after changing icon pack
+        LauncherAppState.getInstance().getIconCache().flush();
+        LauncherAppState.getInstance().getModel().forceReload();
+        
+        finish();
     }
     
     private class IconPackAdapter extends BaseAdapter
