@@ -20,10 +20,8 @@
     <string name="interface_iconpack_chooser_title">Choose Icon Pack</string>
     <string name="interface_homescreen_drawer">Homescreen/Drawer</string>
     <string name="interface_homescreen_drawer_icon_size_title">Icon Size</string>
-    <string name="interface_homescreen_drawer_icon_size_summary_default">Default</string>
     <string name="interface_hotseat">Hotseat</string>
     <string name="interface_hotseat_icon_size_title">Icon Size</string>
-    <string name="interface_hotseat_icon_size_summary_default">Default</string>
     
     <!-- Messages -->
     <string name="message_needs_restart">Needs restarting LightLauncher to take effect</string>

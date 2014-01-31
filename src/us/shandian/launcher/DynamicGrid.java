@@ -539,28 +539,28 @@ public class DynamicGrid {
         boolean hasAA = !AppsCustomizePagedView.DISABLE_ALL_APPS;
         
         // Get the custom icon size
-        int homescreenIconSize = SettingsProvider.getInt(mContext, SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE, 0);
-        int hotseatIconSize = SettingsProvider.getInt(mContext, SettingsProvider.KEY_INTERFACE_HOTSEAT_ICON_SIZE, 0);
+        int homescreenIconSize = SettingsProvider.getInt(mContext, SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE, 48);
+        int hotseatIconSize = SettingsProvider.getInt(mContext, SettingsProvider.KEY_INTERFACE_HOTSEAT_ICON_SIZE, 48);
         // Our phone profiles include the bar sizes in each orientation
         deviceProfiles.add(new DeviceProfile("Super Short Stubby",
-                255, 300,  2, 3,  homescreenIconSize > 0 ? homescreenIconSize : 12, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 12));
+                255, 300,  2, 3,  homescreenIconSize, 13, (hasAA ? 5 : 4), hotseatIconSize));
         deviceProfiles.add(new DeviceProfile("Shorter Stubby",
-                255, 400,  3, 3,  homescreenIconSize > 0 ? homescreenIconSize : 12, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 12));
+                255, 400,  3, 3,  homescreenIconSize, 13, (hasAA ? 5 : 4), hotseatIconSize));
         deviceProfiles.add(new DeviceProfile("Short Stubby",
-                275, 420,  3, 4,  homescreenIconSize > 0 ? homescreenIconSize : 12, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 12));
+                275, 420,  3, 4,  homescreenIconSize, 13, (hasAA ? 5 : 4), hotseatIconSize));
         deviceProfiles.add(new DeviceProfile("Stubby",
-                255, 450,  3, 4,  homescreenIconSize > 0 ? homescreenIconSize : 12, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 12));
+                255, 450,  3, 4,  homescreenIconSize, 13, (hasAA ? 5 : 4), hotseatIconSize));
         deviceProfiles.add(new DeviceProfile("Nexus S",
-                296, 491.33f,  4, 4,  homescreenIconSize > 0 ? homescreenIconSize : 12, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 12));
+                296, 491.33f,  4, 4,  homescreenIconSize, 13, (hasAA ? 5 : 4), hotseatIconSize));
         deviceProfiles.add(new DeviceProfile("Nexus 4",
-                359, 518,  4, 4,  homescreenIconSize > 0 ? homescreenIconSize : 60, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 56));
+                359, 518,  4, 4,  homescreenIconSize, 13, (hasAA ? 5 : 4), hotseatIconSize));
         // The tablet profile is odd in that the landscape orientation
         // also includes the nav bar on the side
         deviceProfiles.add(new DeviceProfile("Nexus 7",
-                575, 904,  6, 6,  homescreenIconSize > 0 ? homescreenIconSize : 72, 14.4f,  7, hotseatIconSize > 0 ? hotseatIconSize : 60));
+                575, 904,  6, 6,  homescreenIconSize, 14.4f,  7, hotseatIconSize));
         // Larger tablet profiles always have system bars on the top & bottom
         deviceProfiles.add(new DeviceProfile("Nexus 10",
-                727, 1207,  5, 8,  homescreenIconSize > 0 ? homescreenIconSize : 80, 14.4f,  9, hotseatIconSize > 0 ? hotseatIconSize : 64));
+                727, 1207,  5, 8,  homescreenIconSize, 14.4f,  9, hotseatIconSize));
         /*
         deviceProfiles.add(new DeviceProfile("Nexus 7",
                 600, 960,  5, 5,  72, 14.4f,  5, 60));
@@ -568,7 +568,7 @@ public class DynamicGrid {
                 800, 1280,  5, 5,  80, 14.4f, (hasAA ? 7 : 6), 64));
          */
         deviceProfiles.add(new DeviceProfile("20-inch Tablet",
-                1527, 2527,  7, 7,  homescreenIconSize > 0 ? homescreenIconSize : 100, 20,  7, hotseatIconSize > 0 ? hotseatIconSize : 72));
+                1527, 2527,  7, 7,  homescreenIconSize, 20,  7, hotseatIconSize));
 
         return deviceProfiles;
     }
