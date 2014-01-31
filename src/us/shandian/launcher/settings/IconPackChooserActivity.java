@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListView.OnItemClickListener;
+import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.Map;
 import java.util.ArrayList;
