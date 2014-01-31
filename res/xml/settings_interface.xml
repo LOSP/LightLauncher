@@ -18,6 +18,26 @@
                 android:targetClass="us.shandian.launcher.settings.IconPackChooserActivity"/>
         </Preference>
         
-     </PreferenceCategory>
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/interface_homescreen_drawer">
+        
+        <EditTextPreference 
+            android:key="interface_homescreen_drawer_icon_size"
+            android:title="@string/interface_homescreen_drawer_icon_size_title"
+            android:summary="@string/interface_homescreen_drawer_icon_size_summary_default"/>
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/interface_hotseat">
+        
+        <EditTextPreference
+            android:key="interface_hotseat_icon_size"
+            android:title="@string/interface_hotseat_icon_size_title"
+            android:summary="@string/interface_hotseat_icon_size_summary_default"/>
+        
+    </PreferenceCategory>
     
 </PreferenceScreen>

@@ -38,6 +38,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import us.shandian.launcher.settings.SettingsProvider;
+
 
 class DeviceProfileQuery {
     float widthDps;
@@ -484,9 +486,14 @@ public class DynamicGrid {
     @SuppressWarnings("unused")
     private static final String TAG = "DynamicGrid";
 
+    private Context mContext;
     private DeviceProfile mProfile;
     private float mMinWidth;
     private float mMinHeight;
+    
+    private int minWidthPx, minHeightPx;
+    private int widthPx, heightPx;
+    private int awPx, ahPx;
 
     public static float dpiFromPx(int size, DisplayMetrics metrics){
         float densityRatio = (float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT;
@@ -505,41 +512,17 @@ public class DynamicGrid {
                        int minWidthPx, int minHeightPx,
                        int widthPx, int heightPx,
                        int awPx, int ahPx) {
+        mContext = context;
+        this.minWidthPx = minWidthPx;
+        this.minHeightPx = minHeightPx;
+        this.widthPx = widthPx;
+        this.heightPx = heightPx;
+        this.awPx = awPx;
+        this.ahPx = ahPx;
         DisplayMetrics dm = resources.getDisplayMetrics();
-        ArrayList<DeviceProfile> deviceProfiles =
-                new ArrayList<DeviceProfile>();
-        boolean hasAA = !AppsCustomizePagedView.DISABLE_ALL_APPS;
-        // Our phone profiles include the bar sizes in each orientation
-        deviceProfiles.add(new DeviceProfile("Super Short Stubby",
-                255, 300,  2, 3,  12, 13, (hasAA ? 5 : 4), 12));
-        deviceProfiles.add(new DeviceProfile("Shorter Stubby",
-                255, 400,  3, 3,  12, 13, (hasAA ? 5 : 4), 12));
-        deviceProfiles.add(new DeviceProfile("Short Stubby",
-                275, 420,  3, 4,  12, 13, (hasAA ? 5 : 4), 12));
-        deviceProfiles.add(new DeviceProfile("Stubby",
-                255, 450,  3, 4,  12, 13, (hasAA ? 5 : 4), 12));
-        deviceProfiles.add(new DeviceProfile("Nexus S",
-                296, 491.33f,  4, 4,  12, 13, (hasAA ? 5 : 4), 12));
-        deviceProfiles.add(new DeviceProfile("Nexus 4",
-                359, 518,  4, 4,  60, 13, (hasAA ? 5 : 4), 56));
-        // The tablet profile is odd in that the landscape orientation
-        // also includes the nav bar on the side
-        deviceProfiles.add(new DeviceProfile("Nexus 7",
-                575, 904,  6, 6,  72, 14.4f,  7, 60));
-        // Larger tablet profiles always have system bars on the top & bottom
-        deviceProfiles.add(new DeviceProfile("Nexus 10",
-                727, 1207,  5, 8,  80, 14.4f,  9, 64));
-        /*
-        deviceProfiles.add(new DeviceProfile("Nexus 7",
-                600, 960,  5, 5,  72, 14.4f,  5, 60));
-        deviceProfiles.add(new DeviceProfile("Nexus 10",
-                800, 1280,  5, 5,  80, 14.4f, (hasAA ? 7 : 6), 64));
-         */
-        deviceProfiles.add(new DeviceProfile("20-inch Tablet",
-                1527, 2527,  7, 7,  100, 20,  7, 72));
-        mMinWidth = dpiFromPx(minWidthPx, dm);
+         mMinWidth = dpiFromPx(minWidthPx, dm);
         mMinHeight = dpiFromPx(minHeightPx, dm);
-        mProfile = new DeviceProfile(context, deviceProfiles,
+        mProfile = new DeviceProfile(context, initDeviceProfiles(),
                 mMinWidth, mMinHeight,
                 widthPx, heightPx,
                 awPx, ahPx,
@@ -548,6 +531,54 @@ public class DynamicGrid {
 
     DeviceProfile getDeviceProfile() {
         return mProfile;
+    }
+    
+    private ArrayList<DeviceProfile> initDeviceProfiles() {
+        ArrayList<DeviceProfile> deviceProfiles =
+                new ArrayList<DeviceProfile>();
+        boolean hasAA = !AppsCustomizePagedView.DISABLE_ALL_APPS;
+        
+        // Get the custom icon size
+        int homescreenIconSize = SettingsProvider.getInt(mContext, SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE, 0);
+        int hotseatIconSize = SettingsProvider.getInt(mContext, SettingsProvider.KEY_INTERFACE_HOTSEAT_ICON_SIZE, 0);
+        // Our phone profiles include the bar sizes in each orientation
+        deviceProfiles.add(new DeviceProfile("Super Short Stubby",
+                255, 300,  2, 3,  homescreenIconSize > 0 ? homescreenIconSize : 12, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 12));
+        deviceProfiles.add(new DeviceProfile("Shorter Stubby",
+                255, 400,  3, 3,  homescreenIconSize > 0 ? homescreenIconSize : 12, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 12));
+        deviceProfiles.add(new DeviceProfile("Short Stubby",
+                275, 420,  3, 4,  homescreenIconSize > 0 ? homescreenIconSize : 12, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 12));
+        deviceProfiles.add(new DeviceProfile("Stubby",
+                255, 450,  3, 4,  homescreenIconSize > 0 ? homescreenIconSize : 12, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 12));
+        deviceProfiles.add(new DeviceProfile("Nexus S",
+                296, 491.33f,  4, 4,  homescreenIconSize > 0 ? homescreenIconSize : 12, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 12));
+        deviceProfiles.add(new DeviceProfile("Nexus 4",
+                359, 518,  4, 4,  homescreenIconSize > 0 ? homescreenIconSize : 60, 13, (hasAA ? 5 : 4), hotseatIconSize > 0 ? hotseatIconSize : 56));
+        // The tablet profile is odd in that the landscape orientation
+        // also includes the nav bar on the side
+        deviceProfiles.add(new DeviceProfile("Nexus 7",
+                575, 904,  6, 6,  homescreenIconSize > 0 ? homescreenIconSize : 72, 14.4f,  7, hotseatIconSize > 0 ? hotseatIconSize : 60));
+        // Larger tablet profiles always have system bars on the top & bottom
+        deviceProfiles.add(new DeviceProfile("Nexus 10",
+                727, 1207,  5, 8,  homescreenIconSize > 0 ? homescreenIconSize : 80, 14.4f,  9, hotseatIconSize > 0 ? hotseatIconSize : 64));
+        /*
+        deviceProfiles.add(new DeviceProfile("Nexus 7",
+                600, 960,  5, 5,  72, 14.4f,  5, 60));
+        deviceProfiles.add(new DeviceProfile("Nexus 10",
+                800, 1280,  5, 5,  80, 14.4f, (hasAA ? 7 : 6), 64));
+         */
+        deviceProfiles.add(new DeviceProfile("20-inch Tablet",
+                1527, 2527,  7, 7,  homescreenIconSize > 0 ? homescreenIconSize : 100, 20,  7, hotseatIconSize > 0 ? hotseatIconSize : 72));
+
+        return deviceProfiles;
+    }
+    
+    public void forceReload() {
+        mProfile = new DeviceProfile(mContext, initDeviceProfiles(),
+                mMinWidth, mMinHeight,
+                widthPx, heightPx,
+                awPx, ahPx,
+                mContext.getResources());
     }
 
     public String toString() {
