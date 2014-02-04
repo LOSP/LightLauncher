@@ -2,6 +2,7 @@ package us.shandian.launcher.settings;
 
 import android.os.Bundle;
 import android.content.Context;
+import android.view.MenuItem;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -20,6 +21,9 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         // Initialize the preferences
         mRestart = findPreference(SettingsProvider.KEY_SETTINGS_RESTART);
         mRestart.setOnPreferenceClickListener(this);
+        
+        // Show "up" button
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -32,5 +36,12 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (item.getItemId() == android.R.id.home) finish();
+        return super.onOptionsItemSelected(item);
     }
 }
