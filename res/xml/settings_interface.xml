@@ -21,6 +21,16 @@
     </PreferenceCategory>
     
     <PreferenceCategory
+        android:title="@string/interface_global">
+        
+        <EditTextPreference
+            android:key="interface_global_font_size"
+            android:title="@string/interface_global_font_size_title"
+            android:inputType="number"/>
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory
         android:title="@string/interface_homescreen_drawer">
         
         <EditTextPreference 

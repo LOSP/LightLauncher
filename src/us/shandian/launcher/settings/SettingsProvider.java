@@ -9,6 +9,7 @@ public class SettingsProvider
     
     public static String KEY_SETTINGS_RESTART = "settings_restart";
     public static String KEY_INTERFACE_ICONPACK = "interface_iconpack";
+    public static String KEY_INTERFACE_GLOBAL_FONT_SIZE = "interface_global_font_size";
     public static String KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE = "interface_homescreen_drawer_icon_size";
     public static String KEY_INTERFACE_HOTSEAT_ICON_SIZE = "interface_hotseat_icon_size";
     

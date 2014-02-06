@@ -18,6 +18,8 @@
     <string name="interface_iconpack_current_title">当前图标包</string>
     <string name="interface_iconpack_current_summary_default">默认</string>
     <string name="interface_iconpack_chooser_title">选择图标包</string>
+    <string name="interface_global">全局</string>
+    <string name="interface_global_font_size_title">字体大小</string>
     <string name="interface_homescreen_drawer">主屏幕/抽屉</string>
     <string name="interface_homescreen_drawer_icon_size_title">图标大小</string>
     <string name="interface_hotseat">托盘</string>

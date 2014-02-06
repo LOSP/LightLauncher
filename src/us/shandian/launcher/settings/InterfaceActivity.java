@@ -19,6 +19,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
     private Preference mCurrent;
     private Preference mChooser;
     
+    private EditTextPreference mGlobalFontSize;
     private EditTextPreference mHomescreenIconSize;
     private EditTextPreference mHotseatIconSize;
     
@@ -30,6 +31,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
         // Initialize
         mCurrent = findPreference(KEY_ICONPACK_CURRENT);
         mChooser = findPreference(KEY_ICONPACK_CHOOSER);
+        mGlobalFontSize = (EditTextPreference) findPreference(SettingsProvider.KEY_INTERFACE_GLOBAL_FONT_SIZE);
         mHomescreenIconSize = (EditTextPreference) findPreference(SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE);
         mHotseatIconSize = (EditTextPreference) findPreference(SettingsProvider.KEY_INTERFACE_HOTSEAT_ICON_SIZE);
         
@@ -40,6 +42,10 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
             // So what?
         }
         
+        int globalFontSize = SettingsProvider.getInt(this, SettingsProvider.KEY_INTERFACE_GLOBAL_FONT_SIZE, 13);
+        mGlobalFontSize.setSummary(globalFontSize + " sp");
+        mGlobalFontSize.setText(String.valueOf(globalFontSize));
+        
         int homescreenIconSize = SettingsProvider.getInt(this, SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE, 48);
         mHomescreenIconSize.setSummary(homescreenIconSize + " dp");
         mHomescreenIconSize.setText(String.valueOf(homescreenIconSize));
@@ -48,6 +54,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
         mHotseatIconSize.setSummary(hotseatIconSize + " dp");
         mHotseatIconSize.setText(String.valueOf(hotseatIconSize));
         
+        mGlobalFontSize.setOnPreferenceChangeListener(this);
         mHomescreenIconSize.setOnPreferenceChangeListener(this);
         mHotseatIconSize.setOnPreferenceChangeListener(this);
         
@@ -80,7 +87,13 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         boolean ret = false;
         boolean needsRestart = false;
-        if (preference == mHomescreenIconSize) {
+        if (preference == mGlobalFontSize) {
+            int size = newValue.equals("") ? 13 : Integer.parseInt((String) newValue);
+            mGlobalFontSize.setSummary(size + " sp");
+            SettingsProvider.putInt(this, SettingsProvider.KEY_INTERFACE_GLOBAL_FONT_SIZE, size);
+            ret = true;
+            needsRestart = true;
+        } else if (preference == mHomescreenIconSize) {
             int size = newValue.equals("") ? 48 : Integer.parseInt((String) newValue);
             mHomescreenIconSize.setSummary(size + " dp");
             SettingsProvider.putInt(this, SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE, size);
