@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2009 The Android Open Source Project
+ * Copyright (C) 2014 The Light Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +18,7 @@
 package us.shandian.launcher;
 
 import android.appwidget.AppWidgetHostView;
+import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -116,6 +118,18 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
     @Override
     public int getDescendantFocusability() {
         return ViewGroup.FOCUS_BLOCK_DESCENDANTS;
+    }
+
+    @Override
+    public AppWidgetProviderInfo getAppWidgetInfo() {
+        AppWidgetProviderInfo info = super.getAppWidgetInfo();
+        
+        // Set resize flag for all widgets
+        info.resizeMode = AppWidgetProviderInfo.RESIZE_BOTH;
+        info.minResizeHeight = 40;
+        info.minResizeWidth = 40;
+        
+        return info;
     }
 
 
