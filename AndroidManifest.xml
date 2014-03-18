@@ -176,6 +176,19 @@
             </intent-filter>
         </activity>
         
+        <!-- Launcher effects -->
+        <activity
+            android:name="us.shandian.launcher.settings.EffectsActivity"
+            android:theme="@android:style/Theme.Holo.Light"
+            android:label="@string/settings_effects"
+            android:icon="@mipmap/ic_launcher_home"
+            android:finishOnCloseSystemDialogs="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
         <!-- Launcher iconpack chooser -->
         <activity
             android:name="us.shandian.launcher.settings.IconPackChooserActivity"

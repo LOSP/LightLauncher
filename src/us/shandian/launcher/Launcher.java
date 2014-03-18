@@ -101,6 +101,7 @@ import android.widget.Toast;
 
 import us.shandian.launcher.DropTarget.DragObject;
 import us.shandian.launcher.settings.SettingsActivity;
+import us.shandian.launcher.settings.SettingsProvider;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -925,6 +926,16 @@ public class Launcher extends Activity
         }
         mWorkspace.updateInteractionForState();
         mWorkspace.onResume();
+        
+        // Request for orientation
+        boolean autoRotate = SettingsProvider.getBoolean(this,
+                                 SettingsProvider.KEY_EFFECTS_GLOBAL_AUTO_ROTATE,
+                                 false);
+        if (autoRotate) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        }
     }
 
     @Override

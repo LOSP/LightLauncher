@@ -10,6 +10,13 @@
     </Preference>
     
     <Preference
+        android:title="@string/settings_effects">
+        <intent android:action="android.intent.action.MAIN"
+            android:targetPackage="us.shandian.launcher"
+            android:targetClass="us.shandian.launcher.settings.EffectsActivity"/>
+    </Preference>
+    
+    <Preference
         android:title="@string/settings_about">
         <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="us.shandian.launcher"

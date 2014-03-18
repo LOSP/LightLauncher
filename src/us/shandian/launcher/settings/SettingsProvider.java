@@ -12,6 +12,8 @@ public class SettingsProvider
     public static String KEY_INTERFACE_GLOBAL_FONT_SIZE = "interface_global_font_size";
     public static String KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE = "interface_homescreen_drawer_icon_size";
     public static String KEY_INTERFACE_HOTSEAT_ICON_SIZE = "interface_hotseat_icon_size";
+	
+	public static String KEY_EFFECTS_GLOBAL_AUTO_ROTATE = "effects_global_auto_rotate";
     
     public static SharedPreferences getPreferences(Context context) {
         return context.getSharedPreferences(KEY_PREFERENCES, Context.MODE_MULTI_PROCESS);

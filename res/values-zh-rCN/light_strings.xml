@@ -5,6 +5,7 @@
     <string name="settings_about">关于</string>
     <string name="settings_restart">重启 LightLauncher</string>
     <string name="settings_interface">界面</string>
+    <string name="settings_effects">效果</string>
     
     <!-- About -->
     <string name="about_version_title">LightLauncher 版本</string>
@@ -24,6 +25,10 @@
     <string name="interface_homescreen_drawer_icon_size_title">图标大小</string>
     <string name="interface_hotseat">托盘</string>
     <string name="interface_hotseat_icon_size_title">图标大小</string>
+    
+    <!-- Effects -->
+    <string name="effects_global">全局</string>
+    <string name="effects_global_auto_rotate_title">自动旋转</string>
     
     <!-- Messages -->
     <string name="message_needs_restart">需要重启 LightLauncher 使设置生效</string>
