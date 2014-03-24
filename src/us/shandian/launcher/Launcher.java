@@ -365,6 +365,11 @@ public class Launcher extends Activity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Disable All Apps
+        AppsCustomizePagedView.DISABLE_ALL_APPS = !SettingsProvider.getBoolean(this,
+                                                      SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ENABLE_DRAWER,
+                                                      true);
+        
         if (DEBUG_STRICT_MODE) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                     .detectDiskReads()

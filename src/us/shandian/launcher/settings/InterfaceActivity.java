@@ -5,6 +5,7 @@ import android.widget.Toast;
 import android.view.MenuItem;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference.OnPreferenceChangeListener;
 
@@ -21,6 +22,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
     
     private EditTextPreference mGlobalFontSize;
     private EditTextPreference mHomescreenIconSize;
+    private CheckBoxPreference mEnableDrawer;
     private EditTextPreference mHotseatIconSize;
     
     @Override
@@ -33,6 +35,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
         mChooser = findPreference(KEY_ICONPACK_CHOOSER);
         mGlobalFontSize = (EditTextPreference) findPreference(SettingsProvider.KEY_INTERFACE_GLOBAL_FONT_SIZE);
         mHomescreenIconSize = (EditTextPreference) findPreference(SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE);
+        mEnableDrawer = (CheckBoxPreference) findPreference(SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ENABLE_DRAWER);
         mHotseatIconSize = (EditTextPreference) findPreference(SettingsProvider.KEY_INTERFACE_HOTSEAT_ICON_SIZE);
         
         String iconPack = SettingsProvider.getString(this, SettingsProvider.KEY_INTERFACE_ICONPACK, getResources().getString(R.string.interface_iconpack_current_summary_default));
@@ -54,8 +57,11 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
         mHotseatIconSize.setSummary(hotseatIconSize + " dp");
         mHotseatIconSize.setText(String.valueOf(hotseatIconSize));
         
+        mEnableDrawer.setChecked(SettingsProvider.getBoolean(this, SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ENABLE_DRAWER, true));
+        
         mGlobalFontSize.setOnPreferenceChangeListener(this);
         mHomescreenIconSize.setOnPreferenceChangeListener(this);
+        mEnableDrawer.setOnPreferenceChangeListener(this);
         mHotseatIconSize.setOnPreferenceChangeListener(this);
         
         
@@ -103,6 +109,14 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
             int size = newValue.equals("") ? 48 : Integer.parseInt((String) newValue);
             mHotseatIconSize.setSummary(size + " dp");
             SettingsProvider.putInt(this, SettingsProvider.KEY_INTERFACE_HOTSEAT_ICON_SIZE, size);
+            ret = true;
+            needsRestart = true;
+        } else if (preference == mEnableDrawer) {
+            boolean enable = (Boolean) newValue;
+            mEnableDrawer.setChecked(enable);
+            SettingsProvider.putBoolean(this,
+                SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ENABLE_DRAWER,
+                enable);
             ret = true;
             needsRestart = true;
         }

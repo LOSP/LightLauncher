@@ -38,6 +38,11 @@
             android:title="@string/interface_homescreen_drawer_icon_size_title"
             android:inputType="number"/>
         
+        <CheckBoxPreference
+            android:key="interface_homescreen_drawer_enable_drawer"
+            android:title="@string/interface_homescreen_drawer_enable_drawer"
+            android:checked="true"/>
+        
     </PreferenceCategory>
     
     <PreferenceCategory
