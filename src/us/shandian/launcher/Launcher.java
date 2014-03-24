@@ -2819,7 +2819,7 @@ public class Launcher extends Activity
         // Shrink workspaces away if going to AppsCustomize from workspace
         Animator workspaceAnim =
                 mWorkspace.getChangeStateAnimation(Workspace.State.SMALL, animated);
-        if (!AppsCustomizePagedView.DISABLE_ALL_APPS) {
+        if (!AppsCustomizePagedView.DISABLE_ALL_APPS || contentType == AppsCustomizePagedView.ContentType.Widgets) {
             // Set the content type for the all apps space
             mAppsCustomizeTabHost.setContentTypeImmediate(contentType);
         }
