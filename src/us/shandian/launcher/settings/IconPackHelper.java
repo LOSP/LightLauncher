@@ -46,8 +46,22 @@ public class IconPackHelper {
     private static final String ICON_BACK = "iconback";
     private static final String ICON_UPON = "iconupon";
     private static final String ICON_SCALE = "scale";
-    private static final String ICON_DRAWER = "drawer";
-    private static final String ICON_APP_DRAWER = "app_drawer";
+    
+    // List of resource names for all apps button
+    private static final String[] ICON_DRAWER = new String[] {
+        // Mostly used
+        "all_apps_button_icon",
+        
+        // Collection of some other names of the icon
+        "drawer",
+        "app_drawer",
+        "appdrawer",
+        "appdrawer1",
+        "apps",
+        "all",
+        "allapps",
+        "allapp"
+    };
 
     // Holds package/class -> drawable
     private Map<String, String> mIconPackResources;
@@ -218,10 +232,13 @@ public class IconPackHelper {
         mLoadedIconPackName = packageName;
         
         // Drawer Icon
-        int drawerIconId = getResourceIdForDrawable(ICON_DRAWER);
-        if (drawerIconId == 0) {
-            // Try another way
-            drawerIconId = getResourceIdForDrawable(ICON_APP_DRAWER);
+        int drawerIconId = 0;
+        for (String resName : ICON_DRAWER) {
+            drawerIconId = getResourceIdForDrawable(resName);
+            
+            if (drawerIconId > 0) {
+                break;
+            }
         }
         
         if (drawerIconId > 0) {
