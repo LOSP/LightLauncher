@@ -46,6 +46,8 @@ public class IconPackHelper {
     private static final String ICON_BACK = "iconback";
     private static final String ICON_UPON = "iconupon";
     private static final String ICON_SCALE = "scale";
+    private static final String ICON_DRAWER = "drawer";
+    private static final String ICON_APP_DRAWER = "app_drawer";
 
     // Holds package/class -> drawable
     private Map<String, String> mIconPackResources;
@@ -56,6 +58,9 @@ public class IconPackHelper {
     // Icon Mask/Back/Upon/Scale
     private Drawable mIconMasks[], mIconBacks[], mIconUpons[];
     private float mIconScale;
+    
+    // Drawer icon
+    private Drawable mDrawerIcon;
     
     // Random object used for icons
     private Random mRandom = new Random();
@@ -211,6 +216,18 @@ public class IconPackHelper {
         }
         mLoadedIconPackResource = res;
         mLoadedIconPackName = packageName;
+        
+        // Drawer Icon
+        int drawerIconId = getResourceIdForDrawable(ICON_DRAWER);
+        if (drawerIconId == 0) {
+            // Try another way
+            drawerIconId = getResourceIdForDrawable(ICON_APP_DRAWER);
+        }
+        
+        if (drawerIconId > 0) {
+            mDrawerIcon = mLoadedIconPackResource.getDrawable(drawerIconId);
+        }
+        
         mIconMasks = getDrawablesForName(ICON_MASK);
         mIconBacks = getDrawablesForName(ICON_BACK);
         mIconUpons = getDrawablesForName(ICON_UPON);
@@ -327,6 +344,7 @@ public class IconPackHelper {
         mIconBacks = null;
         mIconUpons = null;
         mIconScale = 1f;
+        mDrawerIcon = null;
         if (mIconPackResources != null) {
             mIconPackResources.clear();
         }
@@ -416,6 +434,10 @@ public class IconPackHelper {
      */
     public float getIconScale() {
         return mIconScale;
+    }
+    
+    public Drawable getDrawerIcon() {
+        return mDrawerIcon;
     }
     
     private int randomIntWithMaxValue(int max) {

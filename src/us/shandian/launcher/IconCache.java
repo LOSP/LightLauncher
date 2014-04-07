@@ -284,4 +284,12 @@ public class IconCache {
             return set;
         }
     }
+    
+    public Drawable getDrawerIcon() {
+        if (mHasIconPack) {
+            return mHelper.getDrawerIcon();
+        } else {
+            return null;
+        }
+    }
 }
