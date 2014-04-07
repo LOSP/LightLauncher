@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Map;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -39,12 +40,25 @@ public class IconPackHelper {
         "com.anddoes.launcher.THEME",
         "com.teslacoilsw.launcher.THEME"
     };
+    
+    // Icon Tags
+    private static final String ICON_MASK = "iconmask";
+    private static final String ICON_BACK = "iconback";
+    private static final String ICON_UPON = "iconupon";
+    private static final String ICON_SCALE = "scale";
 
     // Holds package/class -> drawable
     private Map<String, String> mIconPackResources;
     private final Context mContext;
     private String mLoadedIconPackName;
     private Resources mLoadedIconPackResource;
+    
+    // Icon Mask/Back/Upon/Scale
+    private Drawable mIconMasks[], mIconBacks[], mIconUpons[];
+    private float mIconScale;
+    
+    // Random object used for icons
+    private Random mRandom = new Random();
 
     public IconPackHelper(Context context) {
         mContext = context;
@@ -80,6 +94,35 @@ public class IconPackHelper {
         do {
 
             if (eventType != XmlPullParser.START_TAG) {
+                continue;
+            }
+            
+            if (parser.getName().equalsIgnoreCase(ICON_MASK) ||
+                parser.getName().equalsIgnoreCase(ICON_BACK) ||
+                parser.getName().equalsIgnoreCase(ICON_UPON))
+            {
+                if (parser.getAttributeCount() > 0) {
+                    String icons = new String();
+                    for (int i = 0; i < parser.getAttributeCount(); i++) {
+                        icons += parser.getAttributeValue(i);
+                        
+                        if (i < parser.getAttributeCount() - 1) {
+                            icons += "|";
+                        }
+                    }
+                    iconPackResources.put(parser.getName().toLowerCase(), icons);
+                }
+                continue;
+            }
+            
+            if (parser.getName().equalsIgnoreCase(ICON_SCALE)) {
+                String factor = parser.getAttributeValue(null, "factor");
+                if (factor == null) {
+                    if (parser.getAttributeCount() == 1) {
+                        factor = parser.getAttributeValue(0);
+                    }
+                }
+                iconPackResources.put(parser.getName().toLowerCase(), factor);
                 continue;
             }
 
@@ -168,6 +211,17 @@ public class IconPackHelper {
         }
         mLoadedIconPackResource = res;
         mLoadedIconPackName = packageName;
+        mIconMasks = getDrawablesForName(ICON_MASK);
+        mIconBacks = getDrawablesForName(ICON_BACK);
+        mIconUpons = getDrawablesForName(ICON_UPON);
+        String scale = mIconPackResources.get(ICON_SCALE);
+        try {
+            mIconScale = Float.valueOf(scale);
+        } catch (NumberFormatException e) {
+            // OK, you win...
+            // Back to default
+            mIconScale = 1f;
+        }
         return true;
     }
 
@@ -269,6 +323,10 @@ public class IconPackHelper {
     public void unloadIconPack() {
         mLoadedIconPackResource = null;
         mLoadedIconPackName = null;
+        mIconMasks = null;
+        mIconBacks = null;
+        mIconUpons = null;
+        mIconScale = 1f;
         if (mIconPackResources != null) {
             mIconPackResources.clear();
         }
@@ -286,7 +344,84 @@ public class IconPackHelper {
         int resId = mLoadedIconPackResource.getIdentifier(resource, "drawable", mLoadedIconPackName);
         return resId;
     }
-
+    
+    private Drawable[] getDrawablesForName(String name) {
+        if (isIconPackLoaded()) {
+            String itemText = mIconPackResources.get(name);
+            
+            if (itemText == null) {
+                return null;
+            }
+            
+            String[] items = itemText.split("\\|");
+            Drawable[] drawables = new Drawable[items.length];
+            for (int i = 0; i < items.length; i++) {
+                if (!TextUtils.isEmpty(items[i])) {
+                    int id = getResourceIdForDrawable(items[i]);
+                    if (id != 0) {
+                        drawables[i] = mLoadedIconPackResource.getDrawable(id);
+                    }
+                }
+            }
+            
+            return drawables;
+        }
+        return null;
+    }
+    
+    /**
+     *
+     * Some icon packs may provide a mask for icons
+     * In order to make all icons match their style.
+     *
+     * Returns a random icon mask provided by icon pack
+     * Null if not provided
+     */
+    public Drawable getIconMask() {
+        if (mIconMasks != null) {
+            return mIconMasks[randomIntWithMaxValue(mIconMasks.length)];
+        } else {
+            return null;
+        }
+    }
+    
+    
+    /**
+     * Returns a random icon back provided by icon pack
+     * Null if not provided
+     */
+    public Drawable getIconBack() {
+        if (mIconBacks != null) {
+            return mIconBacks[randomIntWithMaxValue(mIconBacks.length)];
+        } else {
+            return null;
+        }
+    }
+    
+    /**
+     * Returns a random icon upon provided by icon pack
+     * Null if not provided
+     */
+    public Drawable getIconUpon() {
+        if (mIconUpons != null) {
+            return mIconUpons[randomIntWithMaxValue(mIconUpons.length)];
+        } else {
+            return null;
+        }
+    }
+    
+    /**
+     * Returns icon scale provided by icon pack
+     * Null if not provided
+     */
+    public float getIconScale() {
+        return mIconScale;
+    }
+    
+    private int randomIntWithMaxValue(int max) {
+        return Math.abs(mRandom.nextInt()) % max;
+    }
+    
     public Resources getIconPackResources() {
         return mLoadedIconPackResource;
     }

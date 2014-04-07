@@ -261,8 +261,15 @@ public class IconCache {
                 entry.title = info.activityInfo.name;
             }
 
-            entry.icon = Utilities.createIconBitmap(
-                    getFullResIcon(info), mContext);
+            Drawable icon = getFullResIcon(info);
+            // Draw icon mask/back/upon and scale if app is not contained in icon pack
+            if (mHasIconPack && mHelper.getResourceIdForActivityIcon(info.activityInfo) == 0) {
+                entry.icon = Utilities.createIconBitmap(icon, mContext,
+                                 mHelper.getIconBack(), mHelper.getIconMask(),
+                                 mHelper.getIconUpon(), mHelper.getIconScale());
+            } else {
+                entry.icon = Utilities.createIconBitmap(icon, mContext);
+            }
         }
         return entry;
     }
