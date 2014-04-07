@@ -234,7 +234,7 @@ public class IconPackHelper {
         String scale = mIconPackResources.get(ICON_SCALE);
         try {
             mIconScale = Float.valueOf(scale);
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             // OK, you win...
             // Back to default
             mIconScale = 1f;
