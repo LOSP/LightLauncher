@@ -199,7 +199,7 @@ final class Utilities {
             }
             
             if (iconUpon != null) {
-                iconMask.draw(canvas);
+                iconUpon.draw(canvas);
             }
             
             icon.setBounds(sOldBounds);
