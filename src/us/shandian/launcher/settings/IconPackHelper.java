@@ -308,7 +308,10 @@ public class IconPackHelper {
                 {
                     // No icon masks? Maybe the author put them in resources
                     // So let's fall back
-                    return getIconPackResources(context, packageName, true);
+                    Map<String, String> res2 = getIconPackResources(context, packageName, true);
+                    if (!res2.isEmpty()) {
+                        return res2;
+                    }
                 }
                 return iconPackResources;
             } catch (XmlPullParserException e) {
