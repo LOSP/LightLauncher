@@ -258,8 +258,12 @@ public class IconPackHelper {
         }
         return true;
     }
-
+    
     public static Map<String, String> getIconPackResources(Context context, String packageName) {
+        return getIconPackResources(context, packageName, false);
+    }
+
+    public static Map<String, String> getIconPackResources(Context context, String packageName, boolean loadFromResources) {
         if (TextUtils.isEmpty(packageName)) {
             return null;
         }
@@ -275,15 +279,19 @@ public class IconPackHelper {
         XmlPullParser parser = null;
         InputStream inputStream = null;
         Map<String, String> iconPackResources = new HashMap<String, String>();
-
-        try {
-            inputStream = res.getAssets().open("appfilter.xml");
-            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-            parser = factory.newPullParser();
-            parser.setInput(inputStream, "UTF-8");
-        } catch (Exception e) {
-            // Catch any exception since we want to fall back to parsing the xml/
-            // resource in all cases
+        
+        if (!loadFromResources) {
+            try {
+                inputStream = res.getAssets().open("appfilter.xml");
+                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                parser = factory.newPullParser();
+                parser.setInput(inputStream, "UTF-8");
+            } catch (Exception e) {
+                // Catch any exception since we want to fall back to parsing the xml/
+                // resource in all cases
+                return getIconPackResources(context, packageName, true);
+            }
+        } else {
             int resId = res.getIdentifier("appfilter", "xml", packageName);
             if (resId != 0) {
                 parser = res.getXml(resId);
@@ -293,6 +301,15 @@ public class IconPackHelper {
         if (parser != null) {
             try {
                 loadResourcesFromXmlParser(parser, iconPackResources);
+                if (!loadFromResources && !iconPackResources.containsKey(ICON_BACK) &&
+                    !iconPackResources.containsKey(ICON_MASK) &&
+                    !iconPackResources.containsKey(ICON_UPON) &&
+                    !iconPackResources.containsKey(ICON_SCALE))
+                {
+                    // No icon masks? Maybe the author put them in resources
+                    // So let's fall back
+                    return getIconPackResources(context, packageName, true);
+                }
                 return iconPackResources;
             } catch (XmlPullParserException e) {
                 e.printStackTrace();
