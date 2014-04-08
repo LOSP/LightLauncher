@@ -26,8 +26,8 @@
 	android:versionName="1.0.1">
 
     <uses-sdk
-        android:targetSdkVersion="17"
-        android:minSdkVersion="19" />
+        android:targetSdkVersion="19"
+        android:minSdkVersion="17" />
     
     <permission
         android:name="us.shandian.launcher.permission.PRELOAD_WORKSPACE"
