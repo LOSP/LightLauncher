@@ -269,6 +269,10 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
     protected final Rect mInsets = new Rect();
 
     protected int mFirstChildLeft;
+    
+    // Transition Effect
+    private TransitionEffect mTransitionEffect;
+    private boolean mScrollTransformsSet;
 
     public interface PageSwitchListener {
         void onPageSwitch(View newPage, int newPageIndex);
@@ -334,6 +338,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
         mMinFlingVelocity = (int) (MIN_FLING_VELOCITY * mDensity);
         mMinSnapVelocity = (int) (MIN_SNAP_VELOCITY * mDensity);
         setOnHierarchyChangeListener(this);
+        
     }
 
     protected void onAttachedToWindow() {
@@ -597,6 +602,42 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
 
     // a method that subclasses can override to add behavior
     protected void onPageEndMoving() {
+    }
+    
+    // Transition Effects
+    public TransitionEffect getTransitionEffect() {
+        return mTransitionEffect;
+    }
+    
+    public void setTransitionEffect(TransitionEffect effect) {
+        mTransitionEffect = effect;
+        
+        // Reset
+        if (mScrollTransformsSet) {
+            for (int i = 0; i < getChildCount(); i++) {
+                View v = getPageAt(i);
+                
+                if (v != null) {
+                    v.setPivotX(v.getMeasuredWidth() * 0.5f);
+                    v.setPivotY(v.getMeasuredHeight() * 0.5f);
+                    v.setRotation(0);
+                    v.setRotationX(0);
+                    v.setRotationY(0);
+                    v.setScaleX(1f);
+                    v.setScaleY(1f);
+                    v.setTranslationX(0f);
+                    v.setTranslationY(0f);
+                    v.setVisibility(VISIBLE);
+                    setChildAlpha(v, 1f);
+                }
+            }
+        }
+        
+        mScrollTransformsSet = false;
+    }
+    
+    public void setChildAlpha(View child, float alpha) {
+        child.setAlpha(alpha);
     }
 
     /**
@@ -1000,16 +1041,34 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
     protected void screenScrolled(int screenCenter) {
         boolean isInOverscroll = mOverScrollX < 0 || mOverScrollX > mMaxScrollX;
 
-        if (mFadeInAdjacentScreens && !isInOverscroll) {
+        if (mFadeInAdjacentScreens || mTransitionEffect != null || mScrollTransformsSet) {
             for (int i = 0; i < getChildCount(); i++) {
-                View child = getChildAt(i);
-                if (child != null) {
-                    float scrollProgress = getScrollProgress(screenCenter, child, i);
-                    float alpha = 1 - Math.abs(scrollProgress);
-                    child.setAlpha(alpha);
+                View v = getPageAt(i);
+                if (v != null) {
+                    float scrollProgress = getScrollProgress(screenCenter, v, i);
+                    // Fade first to allow transition effects to override alpha
+                    if (mFadeInAdjacentScreens && !isInOverscroll) {
+                        float alpha = 1 - Math.abs(scrollProgress);
+                        setChildAlpha(v, alpha);
+                    }
+                    if (mTransitionEffect != null && !isInOverscroll) {
+                        mTransitionEffect.screenScrolled(v, i, scrollProgress);
+                    } else if (mScrollTransformsSet) {
+                        v.setPivotX(v.getMeasuredWidth() * 0.5f);
+                        v.setPivotY(v.getMeasuredHeight() * 0.5f);
+                        v.setRotation(0);
+                        v.setRotationX(0);
+                        v.setRotationY(0);
+                        v.setScaleX(1f);
+                        v.setScaleY(1f);
+                        v.setTranslationX(0f);
+                        v.setTranslationY(0f);
+                        v.setVisibility(VISIBLE);
+                        setChildAlpha(v, 1f);
+                    }
                 }
             }
-            invalidate();
+            mScrollTransformsSet = mTransitionEffect != null && !isInOverscroll;
         }
     }
 

@@ -30,6 +30,8 @@
     <!-- Effects -->
     <string name="effects_global">全局</string>
     <string name="effects_global_auto_rotate_title">自动旋转</string>
+    <string name="effects_workspace">主屏幕</string>
+    <string name="effects_workspace_transition_effect">屏幕切换动画</string>
     
     <!-- Messages -->
     <string name="message_needs_restart">需要重启 LightLauncher 使设置生效</string>

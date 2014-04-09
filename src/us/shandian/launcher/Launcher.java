@@ -209,7 +209,7 @@ public class Launcher extends Activity
     private static final Object sLock = new Object();
     private static int sScreen = DEFAULT_SCREEN;
 
-    // How long to wait before the new-shortcut animation automatically pans the workspace
+    // How long to wait before the new-shortcut animation automatically pans the 
     private static int NEW_APPS_PAGE_MOVE_DELAY = 500;
     private static int NEW_APPS_ANIMATION_INACTIVE_TIMEOUT_SECONDS = 5;
     private static int NEW_APPS_ANIMATION_DELAY = 500;
@@ -481,6 +481,15 @@ public class Launcher extends Activity
         unlockScreenOrientation(true);
 
         showFirstRunCling();
+        
+        reloadTransitionEffect();
+    }
+    
+    public void reloadTransitionEffect() {
+        String effect = SettingsProvider.getString(this,
+                            SettingsProvider.KEY_EFFECTS_WORKSPACE_TRANSITION_EFFECT,
+                            TransitionEffect.TRANSITION_EFFECT_NONE);
+        TransitionEffect.setFromString(mWorkspace, effect);
     }
 
     protected void onUserLeaveHint() {

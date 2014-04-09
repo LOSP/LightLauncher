@@ -30,6 +30,8 @@
     <!-- Effects -->
     <string name="effects_global">Global</string>
     <string name="effects_global_auto_rotate_title">Auto Rotate</string>
+    <string name="effects_workspace">Workspace</string>
+    <string name="effects_workspace_transition_effect">Transition Effect</string>
     
     <!-- Messages -->
     <string name="message_needs_restart">Needs restarting LightLauncher to take effect</string>

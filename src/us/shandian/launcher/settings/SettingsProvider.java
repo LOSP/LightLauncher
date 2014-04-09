@@ -15,6 +15,7 @@ public class SettingsProvider
     public static String KEY_INTERFACE_HOTSEAT_ICON_SIZE = "interface_hotseat_icon_size";
 	
 	public static String KEY_EFFECTS_GLOBAL_AUTO_ROTATE = "effects_global_auto_rotate";
+    public static String KEY_EFFECTS_WORKSPACE_TRANSITION_EFFECT = "effects_workspace_transition_effect";
     
     public static SharedPreferences getPreferences(Context context) {
         return context.getSharedPreferences(KEY_PREFERENCES, Context.MODE_MULTI_PROCESS);

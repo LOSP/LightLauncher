@@ -12,4 +12,15 @@
         
     </PreferenceCategory>
     
+    <PreferenceCategory
+        android:title="@string/effects_workspace">
+        
+        <ListPreference
+            android:key="effects_workspace_transition_effect"
+            android:title="@string/effects_workspace_transition_effect"
+            android:entries="@array/transition_effect_entries"
+            android:entryValues="@array/transition_effect_values"/>
+        
+    </PreferenceCategory>
+    
 </PreferenceScreen>

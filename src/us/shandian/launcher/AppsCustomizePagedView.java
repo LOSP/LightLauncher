@@ -241,6 +241,9 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
 
     private boolean mInBulkBind;
     private boolean mNeedToUpdatePageCountsAndInvalidateData;
+    private boolean mOverscrollTransformsSet;
+    private float mLastOverscrollPivotX;
+    
 
     public AppsCustomizePagedView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -485,6 +488,25 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
             updatePageCounts();
             invalidateOnDataChange();
             mNeedToUpdatePageCountsAndInvalidateData = false;
+        }
+    }
+    
+    @Override
+    public void setChildAlpha(View child, float alpha) {
+        if (child instanceof CellLayout) {
+            ((CellLayout) child).getShortcutsAndWidgets().setAlpha(alpha);
+        } else {
+            child.setAlpha(alpha);
+        }
+    }
+    
+    @Override
+    protected boolean shouldDrawChild(View child) {
+        if (child instanceof CellLayout) {
+            return super.shouldDrawChild(child) && 
+                   ((CellLayout) child).getShortcutsAndWidgets().getAlpha() > 0;
+        } else {
+            return super.shouldDrawChild(child);
         }
     }
 

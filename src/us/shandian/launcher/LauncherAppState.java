@@ -46,6 +46,8 @@ public class LauncherAppState {
     private static LauncherAppState INSTANCE;
 
     private DynamicGrid mDynamicGrid;
+    
+    private Launcher mLauncher;
 
     public static LauncherAppState getInstance() {
         if (INSTANCE == null) {
@@ -143,7 +145,12 @@ public class LauncherAppState {
             throw new IllegalStateException("setLauncher() called before init()");
         }
         mModel.initialize(launcher);
+        mLauncher = launcher;
         return mModel;
+    }
+    
+    public Launcher getLauncher() {
+        return mLauncher;
     }
 
     public IconCache getIconCache() {
