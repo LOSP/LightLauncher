@@ -21,6 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Region;
 import android.graphics.Region.Op;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
@@ -54,6 +55,11 @@ public class PagedViewIcon extends TextView {
 
     public PagedViewIcon(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        
+        Typeface font = LauncherAppState.getInstance().getIconCache().mHelper.getFont();
+        if (font != null) {
+            setTypeface(font);
+        }
     }
 
     public void onFinishInflate() {
