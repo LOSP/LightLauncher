@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Transition Efffects -->
+    <string-array name="transition_effect_entries">
+        <item>无</item>
+        <item>缩小</item>
+        <item>放大</item>
+        <item>上旋</item>
+        <item>下旋</item>
+        <item>凹立方</item>
+        <item>凸立方</item>
+        <item>堆叠</item>
+        <item>折叠</item>
+        <item>翻转</item>
+        <item>凹棱柱</item>
+        <item>凸棱柱</item>
+        <item>转轴</item>
+        <item>缩放</item>
+    </string-array>
+</resources>
