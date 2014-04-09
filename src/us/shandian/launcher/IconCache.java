@@ -58,7 +58,7 @@ public class IconCache {
             new HashMap<ComponentName, CacheEntry>(INITIAL_ICON_CACHE_CAPACITY);
     private int mIconDpi;
 	
-	private IconPackHelper mHelper;
+	public IconPackHelper mHelper;
 	private boolean mHasIconPack;
 
     public IconCache(Context context) {

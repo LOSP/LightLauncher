@@ -24,6 +24,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Region;
 import android.graphics.Region.Op;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -101,6 +102,11 @@ public class BubbleTextView extends TextView {
         mFocusedOutlineColor = mFocusedGlowColor = mPressedOutlineColor = mPressedGlowColor =
             res.getColor(R.color.outline_color);
 
+        Typeface font = LauncherAppState.getInstance().getIconCache().mHelper.getFont();
+        if (font != null) {
+            setTypeface(font);
+        }
+        
         setShadowLayer(SHADOW_LARGE_RADIUS, 0.0f, SHADOW_Y_OFFSET, SHADOW_LARGE_COLOUR);
     }
 

@@ -25,6 +25,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
@@ -46,6 +47,9 @@ public class IconPackHelper {
     private static final String ICON_BACK = "iconback";
     private static final String ICON_UPON = "iconupon";
     private static final String ICON_SCALE = "scale";
+    
+    // Fonts
+    private static final String THEME_FONT = "themefont.ttf";
     
     // List of resource names for all apps button
     private static final String[] ICON_DRAWER = new String[] {
@@ -75,6 +79,9 @@ public class IconPackHelper {
     
     // Drawer icon
     private Drawable mDrawerIcon;
+    
+    // Font
+    private Typeface mFont;
     
     // Random object used for icons
     private Random mRandom = new Random();
@@ -256,6 +263,15 @@ public class IconPackHelper {
             // Back to default
             mIconScale = 1f;
         }
+        
+        // Get themefont
+        try {
+            Context appContext = mContext.createPackageContext(packageName, Context.CONTEXT_IGNORE_SECURITY);
+            mFont = Typeface.createFromAsset(appContext.getAssets(), THEME_FONT);
+        } catch (Exception e) {
+            mFont = null;
+        }
+        
         return true;
     }
     
@@ -382,6 +398,7 @@ public class IconPackHelper {
         mIconUpons = null;
         mIconScale = 1f;
         mDrawerIcon = null;
+        mFont = null;
         if (mIconPackResources != null) {
             mIconPackResources.clear();
         }
@@ -475,6 +492,10 @@ public class IconPackHelper {
     
     public Drawable getDrawerIcon() {
         return mDrawerIcon;
+    }
+    
+    public Typeface getFont() {
+        return mFont;
     }
     
     private int randomIntWithMaxValue(int max) {
