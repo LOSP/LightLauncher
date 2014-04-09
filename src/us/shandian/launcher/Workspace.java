@@ -267,6 +267,9 @@ public class Workspace extends SmoothPagedView
     private Runnable mDeferredAction;
     private boolean mDeferDropAfterUninstall;
     private boolean mUninstallSuccessful;
+    
+    // Transition Effect
+    private TransitionEffect mSavedEffect;
 
     private final Runnable mBindPages = new Runnable() {
         @Override
@@ -1868,6 +1871,15 @@ public class Workspace extends SmoothPagedView
         // Re-enable auto layout transitions for page deletion.
         enableLayoutTransitions();
     }
+    
+    @Override
+    public void setTransitionEffect(TransitionEffect effect) {
+        if (isInOverviewMode()) {
+            mSavedEffect = effect;
+        } else {
+            super.setTransitionEffect(effect);
+        }
+    }
 
     public boolean isInOverviewMode() {
         return mState == State.OVERVIEW;
@@ -1877,6 +1889,11 @@ public class Workspace extends SmoothPagedView
         if (mTouchState != TOUCH_STATE_REST) {
             return false;
         }
+        
+        // Disable transition effects for overview mode
+        mSavedEffect = getTransitionEffect();
+        super.setTransitionEffect(null);
+        
         enableOverviewMode(true, -1, true);
         return true;
     }
@@ -1886,6 +1903,9 @@ public class Workspace extends SmoothPagedView
     }
 
     public void exitOverviewMode(int snapPage, boolean animated) {
+        // Re-enable transition effects
+        super.setTransitionEffect(mSavedEffect);
+        
         enableOverviewMode(false, snapPage, animated);
     }
 
