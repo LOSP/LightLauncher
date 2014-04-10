@@ -57,12 +57,16 @@ final class Utilities {
     private static final Paint sGlowColorPressedPaint = new Paint();
     private static final Paint sGlowColorFocusedPaint = new Paint();
     private static final Paint sDisabledPaint = new Paint();
+    private static final Paint sPorterDuffPaint = new Paint();
     private static final Rect sOldBounds = new Rect();
     private static final Canvas sCanvas = new Canvas();
 
     static {
         sCanvas.setDrawFilter(new PaintFlagsDrawFilter(Paint.DITHER_FLAG,
                 Paint.FILTER_BITMAP_FLAG));
+        sPorterDuffPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
+        sPorterDuffPaint.setAntiAlias(true);
+        sPorterDuffPaint.setFilterBitmap(true);
     }
     static int sColors[] = { 0xffff0000, 0xff00ff00, 0xff0000ff };
     static int sColorIndex = 0;
@@ -182,9 +186,7 @@ final class Utilities {
             canvas.restore();
             
             if (iconMask != null) {
-                Paint paint = new Paint();
-                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
-                canvas.drawBitmap(((BitmapDrawable) iconMask).getBitmap(), null, icon.getBounds(), paint);
+                canvas.drawBitmap(((BitmapDrawable) iconMask).getBitmap(), null, icon.getBounds(), sPorterDuffPaint);
             }
             
             if (iconBack != null) {
