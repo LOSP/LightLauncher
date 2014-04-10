@@ -1046,11 +1046,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
                 View v = getPageAt(i);
                 if (v != null) {
                     float scrollProgress = getScrollProgress(screenCenter, v, i);
-                    // Fade first to allow transition effects to override alpha
-                    if (mFadeInAdjacentScreens && !isInOverscroll) {
-                        float alpha = 1 - Math.abs(scrollProgress);
-                        setChildAlpha(v, alpha);
-                    }
+                    
                     if (mTransitionEffect != null && !isInOverscroll) {
                         mTransitionEffect.screenScrolled(v, i, scrollProgress);
                     } else if (mScrollTransformsSet) {
