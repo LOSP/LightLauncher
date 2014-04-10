@@ -300,7 +300,7 @@ public abstract class TransitionEffect {
 
         @Override
         public void screenScrolled(View v, int i, float scrollProgress) {
-            float rotation = (mIn ? TRANSITION_SCREEN_ROTATION : -TRANSITION_SCREEN_ROTATION) * scrollProgress;
+            float rotation = 3 * (mIn ? TRANSITION_SCREEN_ROTATION : -TRANSITION_SCREEN_ROTATION) * scrollProgress;
 
             v.setPivotX((scrollProgress + 1) * v.getMeasuredWidth() * 0.5f);
             v.setPivotY(v.getMeasuredHeight() * 0.5f);
