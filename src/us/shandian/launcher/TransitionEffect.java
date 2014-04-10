@@ -67,6 +67,7 @@ public abstract class TransitionEffect {
     public static final String TRANSITION_EFFECT_CYLINDER_OUT = "cylinder-out";
     public static final String TRANSITION_EFFECT_CAROUSEL = "carousel";
     public static final String TRANSITION_EFFECT_OVERVIEW = "overview";
+    public static final String TRANSITION_EFFECT_CROSS = "cross";
     
     public static float CAMERA_DISTANCE = 6500;
     public static final float TRANSITION_SCALE_FACTOR = 0.74f;
@@ -115,6 +116,8 @@ public abstract class TransitionEffect {
             pagedView.setTransitionEffect(new TransitionEffect.Carousel(pagedView));
         } else if (effect.equals(TransitionEffect.TRANSITION_EFFECT_OVERVIEW)) {
             pagedView.setTransitionEffect(new TransitionEffect.Overview(pagedView));
+        } else if (effect.equals(TransitionEffect.TRANSITION_EFFECT_CROSS)) {
+            pagedView.setTransitionEffect(new TransitionEffect.Cross(pagedView));
         }
     }
 
@@ -342,6 +345,29 @@ public abstract class TransitionEffect {
             v.setScaleX(scale);
             v.setScaleY(scale);
             mPagedView.setChildAlpha(v, scale);
+        }
+    }
+    
+    public static class Cross extends TransitionEffect {
+        public Cross(PagedView pagedView) {
+            super(pagedView, TRANSITION_EFFECT_CROSS);
+        }
+        
+        @Override
+        public void screenScrolled(View v, int i, float scrollProgress) {
+            float rotation = 90.0f * scrollProgress;
+            float alpha = 0.2f + (1 - Math.abs(scrollProgress)) * 0.8f;
+            
+            v.setTranslationX(v.getMeasuredWidth() * scrollProgress);
+            v.setPivotX(0.5f * v.getMeasuredWidth());
+            v.setPivotY(0.5f * v.getMeasuredHeight());
+            v.setRotationY(-rotation);
+            
+            if (v instanceof CellLayout) {
+                ((CellLayout) v).getShortcutsAndWidgets().setAlpha(alpha);
+            } else {
+                v.setAlpha(alpha);
+            }
         }
     }
 }

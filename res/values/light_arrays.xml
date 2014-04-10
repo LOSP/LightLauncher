@@ -16,6 +16,7 @@
         <item>Cylinder Out</item>
         <item>Carousel</item>
         <item>Overview</item>
+        <item>Cross</item>
     </string-array>
     
     <string-array name="transition_effect_values" translatable="false">
@@ -33,5 +34,6 @@
         <item>cylinder-out</item>
         <item>carousel</item>
         <item>overview</item>
+        <item>cross</item>
     </string-array>
 </resources>
