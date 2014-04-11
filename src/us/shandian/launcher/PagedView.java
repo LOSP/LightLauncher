@@ -1047,6 +1047,10 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
                 if (v != null) {
                     float scrollProgress = getScrollProgress(screenCenter, v, i);
                     
+                    if (Math.abs(scrollProgress) >= 1f) {
+                        v.setCameraDistance(0);
+                    }
+                    
                     if (mTransitionEffect != null && !isInOverscroll) {
                         mTransitionEffect.screenScrolled(v, i, scrollProgress);
                     } else if (mScrollTransformsSet) {
