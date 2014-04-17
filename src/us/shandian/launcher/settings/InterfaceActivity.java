@@ -101,12 +101,20 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
             needsRestart = true;
         } else if (preference == mHomescreenIconSize) {
             int size = newValue.equals("") ? 48 : Integer.parseInt((String) newValue);
+            if (size > 108) {
+                // Hey boy, this can't be larger!!
+                size = 108;
+            }
             mHomescreenIconSize.setSummary(size + " dp");
             SettingsProvider.putInt(this, SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE, size);
             ret = true;
             needsRestart = true;
         } else if (preference == mHotseatIconSize) {
             int size = newValue.equals("") ? 48 : Integer.parseInt((String) newValue);
+            if (size > 108) {
+                // Hey boy, this can't be larger!!
+                size = 108;
+            }
             mHotseatIconSize.setSummary(size + " dp");
             SettingsProvider.putInt(this, SettingsProvider.KEY_INTERFACE_HOTSEAT_ICON_SIZE, size);
             ret = true;
