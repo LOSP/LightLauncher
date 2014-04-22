@@ -19,6 +19,7 @@
     <string name="interface_iconpack_current_title">Current Icon Pack</string>
     <string name="interface_iconpack_current_summary_default">Default</string>
     <string name="interface_iconpack_chooser_title">Choose Icon Pack</string>
+    <string name="interface_iconpack_use_font">Use packed font</string>
     <string name="interface_global">Global</string>
     <string name="interface_global_font_size_title">Font Size</string>
     <string name="interface_homescreen_drawer">Homescreen/Drawer</string>

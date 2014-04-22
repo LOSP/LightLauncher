@@ -19,6 +19,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
     
     private Preference mCurrent;
     private Preference mChooser;
+    private CheckBoxPreference mUseFont;
     
     private EditTextPreference mGlobalFontSize;
     private EditTextPreference mHomescreenIconSize;
@@ -33,6 +34,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
         // Initialize
         mCurrent = findPreference(KEY_ICONPACK_CURRENT);
         mChooser = findPreference(KEY_ICONPACK_CHOOSER);
+        mUseFont = (CheckBoxPreference) findPreference(SettingsProvider.KEY_INTERFACE_ICONPACK_USE_FONT);
         mGlobalFontSize = (EditTextPreference) findPreference(SettingsProvider.KEY_INTERFACE_GLOBAL_FONT_SIZE);
         mHomescreenIconSize = (EditTextPreference) findPreference(SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE);
         mEnableDrawer = (CheckBoxPreference) findPreference(SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ENABLE_DRAWER);
@@ -44,6 +46,8 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
         } catch (Exception e) {
             // So what?
         }
+        
+        mUseFont.setChecked(SettingsProvider.getBoolean(this, SettingsProvider.KEY_INTERFACE_ICONPACK_USE_FONT, true));
         
         int globalFontSize = SettingsProvider.getInt(this, SettingsProvider.KEY_INTERFACE_GLOBAL_FONT_SIZE, 13);
         mGlobalFontSize.setSummary(globalFontSize + " sp");
@@ -59,6 +63,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
         
         mEnableDrawer.setChecked(SettingsProvider.getBoolean(this, SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ENABLE_DRAWER, true));
         
+        mUseFont.setOnPreferenceChangeListener(this);
         mGlobalFontSize.setOnPreferenceChangeListener(this);
         mHomescreenIconSize.setOnPreferenceChangeListener(this);
         mEnableDrawer.setOnPreferenceChangeListener(this);
@@ -127,6 +132,13 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
                 enable);
             ret = true;
             needsRestart = true;
+        } else if (preference == mUseFont) {
+            boolean use = (Boolean) newValue;
+            mUseFont.setChecked(use);
+            SettingsProvider.putBoolean(this,
+                SettingsProvider.KEY_INTERFACE_ICONPACK_USE_FONT,
+                use);
+            ret = true;
         }
         
         if (ret) {

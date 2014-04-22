@@ -18,6 +18,11 @@
                 android:targetClass="us.shandian.launcher.settings.IconPackChooserActivity"/>
         </Preference>
         
+        <CheckBoxPreference
+            android:key="interface_iconpack_use_font"
+            android:title="@string/interface_iconpack_use_font"
+            android:checked="true"/>
+        
     </PreferenceCategory>
     
     <PreferenceCategory

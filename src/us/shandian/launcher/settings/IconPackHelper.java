@@ -495,7 +495,11 @@ public class IconPackHelper {
     }
     
     public Typeface getFont() {
-        return mFont;
+        if (SettingsProvider.getBoolean(mContext, SettingsProvider.KEY_INTERFACE_ICONPACK_USE_FONT, true)) {
+            return mFont;
+        } else {
+            return null;
+        }
     }
     
     private int randomIntWithMaxValue(int max) {
