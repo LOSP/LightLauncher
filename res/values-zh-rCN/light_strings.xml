@@ -24,6 +24,7 @@
     <string name="interface_global_font_size_title">字体大小</string>
     <string name="interface_homescreen_drawer">主屏幕/抽屉</string>
     <string name="interface_homescreen_drawer_icon_size_title">图标大小</string>
+    <string name="interface_homescreen_drawer_hide_search_bar">隐藏搜索栏</string>
     <string name="interface_homescreen_drawer_enable_drawer">启用抽屉</string>
     <string name="interface_hotseat">托盘</string>
     <string name="interface_hotseat_icon_size_title">图标大小</string>

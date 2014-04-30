@@ -44,6 +44,11 @@
             android:inputType="number"/>
         
         <CheckBoxPreference
+            android:key="interface_homescreen_drawer_hide_search_bar"
+            android:title="@string/interface_homescreen_drawer_hide_search_bar"
+            android:checked="false"/>
+        
+        <CheckBoxPreference
             android:key="interface_homescreen_drawer_enable_drawer"
             android:title="@string/interface_homescreen_drawer_enable_drawer"
             android:checked="true"/>

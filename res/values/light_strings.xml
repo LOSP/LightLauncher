@@ -24,6 +24,7 @@
     <string name="interface_global_font_size_title">Font Size</string>
     <string name="interface_homescreen_drawer">Homescreen/Drawer</string>
     <string name="interface_homescreen_drawer_icon_size_title">Icon Size</string>
+    <string name="interface_homescreen_drawer_hide_search_bar">Hide Search Bar</string>
     <string name="interface_homescreen_drawer_enable_drawer">Enable Drawer</string>
     <string name="interface_hotseat">Hotseat</string>
     <string name="interface_hotseat_icon_size_title">Icon Size</string>

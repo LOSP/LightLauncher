@@ -2131,7 +2131,9 @@ public class Workspace extends SmoothPagedView
 
             anim.play(overviewPanelAlpha);
             anim.play(hotseatAlpha);
-            anim.play(searchBarAlpha);
+            if (searchBar.getVisibility() != View.GONE) {
+                anim.play(searchBarAlpha);
+            }
             anim.play(pageIndicatorAlpha);
             anim.setStartDelay(delay);
         } else {

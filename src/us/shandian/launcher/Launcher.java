@@ -3331,6 +3331,16 @@ public class Launcher extends Activity
     public View getQsbBar() {
         if (mQsbBar == null) {
             mQsbBar = mInflater.inflate(R.layout.search_bar, mSearchDropTargetBar, false);
+            
+            boolean hide = SettingsProvider.getBoolean(this,
+                               SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_HIDE_SEARCH_BAR,
+                               false);
+            
+            if (hide) {
+                mQsbBar.setVisibility(View.GONE);
+                mSearchDropTargetBar.hideSearchBar();
+            }
+            
             mSearchDropTargetBar.addView(mQsbBar);
         }
         return mQsbBar;

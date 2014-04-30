@@ -23,6 +23,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
     
     private EditTextPreference mGlobalFontSize;
     private EditTextPreference mHomescreenIconSize;
+    private CheckBoxPreference mHideSearchBar;
     private CheckBoxPreference mEnableDrawer;
     private EditTextPreference mHotseatIconSize;
     
@@ -37,6 +38,7 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
         mUseFont = (CheckBoxPreference) findPreference(SettingsProvider.KEY_INTERFACE_ICONPACK_USE_FONT);
         mGlobalFontSize = (EditTextPreference) findPreference(SettingsProvider.KEY_INTERFACE_GLOBAL_FONT_SIZE);
         mHomescreenIconSize = (EditTextPreference) findPreference(SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE);
+        mHideSearchBar = (CheckBoxPreference) findPreference(SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_HIDE_SEARCH_BAR);
         mEnableDrawer = (CheckBoxPreference) findPreference(SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ENABLE_DRAWER);
         mHotseatIconSize = (EditTextPreference) findPreference(SettingsProvider.KEY_INTERFACE_HOTSEAT_ICON_SIZE);
         
@@ -61,11 +63,13 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
         mHotseatIconSize.setSummary(hotseatIconSize + " dp");
         mHotseatIconSize.setText(String.valueOf(hotseatIconSize));
         
+        mHideSearchBar.setChecked(SettingsProvider.getBoolean(this, SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_HIDE_SEARCH_BAR, false));
         mEnableDrawer.setChecked(SettingsProvider.getBoolean(this, SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_ENABLE_DRAWER, true));
         
         mUseFont.setOnPreferenceChangeListener(this);
         mGlobalFontSize.setOnPreferenceChangeListener(this);
         mHomescreenIconSize.setOnPreferenceChangeListener(this);
+        mHideSearchBar.setOnPreferenceChangeListener(this);
         mEnableDrawer.setOnPreferenceChangeListener(this);
         mHotseatIconSize.setOnPreferenceChangeListener(this);
         
@@ -139,6 +143,14 @@ public class InterfaceActivity extends PreferenceActivity implements OnPreferenc
                 SettingsProvider.KEY_INTERFACE_ICONPACK_USE_FONT,
                 use);
             ret = true;
+        } else if (preference == mHideSearchBar) {
+            boolean hide = (Boolean) newValue;
+            mHideSearchBar.setChecked(hide);
+            SettingsProvider.putBoolean(this,
+                                        SettingsProvider.KEY_INTERFACE_HOMESCREEN_DRAWER_HIDE_SEARCH_BAR,
+                                        hide);
+            ret = true;
+            needsRestart = true;
         }
         
         if (ret) {

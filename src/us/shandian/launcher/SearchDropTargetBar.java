@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2014 The Light Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +52,7 @@ public class SearchDropTargetBar extends FrameLayout implements DragController.D
 
     private Drawable mPreviousBackground;
     private boolean mEnableDropDownDropTargets;
+    private boolean mHideSearchBar = false;
 
     public SearchDropTargetBar(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -138,6 +140,7 @@ public class SearchDropTargetBar extends FrameLayout implements DragController.D
      * Shows and hides the search bar.
      */
     public void showSearchBar(boolean animated) {
+        if (mHideSearchBar) return;
         boolean needToCancelOngoingAnimation = mQSBSearchBarAnim.isRunning() && !animated;
         if (!mIsSearchBarHidden && !needToCancelOngoingAnimation) return;
         if (animated) {
@@ -154,6 +157,7 @@ public class SearchDropTargetBar extends FrameLayout implements DragController.D
         mIsSearchBarHidden = false;
     }
     public void hideSearchBar(boolean animated) {
+        if (mHideSearchBar) return;
         boolean needToCancelOngoingAnimation = mQSBSearchBarAnim.isRunning() && !animated;
         if (mIsSearchBarHidden && !needToCancelOngoingAnimation) return;
         if (animated) {
@@ -241,5 +245,9 @@ public class SearchDropTargetBar extends FrameLayout implements DragController.D
         } else {
             return null;
         }
+    }
+    
+    public void hideSearchBar() {
+        mHideSearchBar = true;
     }
 }

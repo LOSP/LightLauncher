@@ -12,6 +12,7 @@ public class SettingsProvider
     public static String KEY_INTERFACE_ICONPACK_USE_FONT = "interface_iconpack_use_font";
     public static String KEY_INTERFACE_GLOBAL_FONT_SIZE = "interface_global_font_size";
     public static String KEY_INTERFACE_HOMESCREEN_DRAWER_ICON_SIZE = "interface_homescreen_drawer_icon_size";
+    public static String KEY_INTERFACE_HOMESCREEN_DRAWER_HIDE_SEARCH_BAR = "interface_homescreen_drawer_hide_search_bar";
     public static String KEY_INTERFACE_HOMESCREEN_DRAWER_ENABLE_DRAWER = "interface_homescreen_drawer_enable_drawer";
     public static String KEY_INTERFACE_HOTSEAT_ICON_SIZE = "interface_hotseat_icon_size";
 	
