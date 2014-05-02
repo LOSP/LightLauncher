@@ -33,7 +33,9 @@ public class IconPackHelper {
 
     public final static String[] sSupportedActions = new String[] {
         "org.adw.launcher.THEMES",
-        "com.gau.go.launcherex.theme"
+        "com.gau.go.launcherex.theme",
+        "home.solo.launcher.free.ACTION_ICON",
+        "home.solo.launcher.free.THEMES"
     };
 
     public static final String[] sSupportedCategories = new String[] {
